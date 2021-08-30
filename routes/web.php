@@ -12,5 +12,19 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+$router->post('/register', 'AuthController@register');
+$router->post('/login', 'AuthController@authenticate');
 
-$router->get('/', 'Debug@search');
+$router->group(['prefix' => 'to-do'], function () use ($router) {
+    $router->get('/', 'ToDoController@index');
+    $router->post('/', 'ToDoController@store');
+    $router->put('/{id}', 'ToDoController@update');
+    $router->delete('/{id}', 'ToDoController@destroy');
+});
+
+$router->group(['prefix' => 'to-do-category'], function () use ($router) {
+    $router->get('/', 'ToDoCategoryController@index');
+    $router->post('/', 'ToDoCategoryController@store');
+    $router->put('/{id}', 'ToDoCategoryController@update');
+    $router->delete('/{id}', 'ToDoCategoryController@destroy');
+});
